@@ -11,11 +11,9 @@
     <link href="{{asset('vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="{{asset('vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="{{asset('vendors/nprogress/nprogress.css')}}" rel="stylesheet">
-    <!-- Custom Theme Style -->
+     <!-- Custom Theme Style -->
     <link href="{{asset('css/custom.css')}}" rel="stylesheet">
-    @section('headerSection')
+    @section('cssSection')
        @show
 
 </head>
@@ -39,11 +37,11 @@
 <script src="{{asset('vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <!-- FastClick -->
 <script src="{{asset('vendors/fastclick/lib/fastclick.js')}}"></script>
-<!-- NProgress -->
-<script src="{{asset('vendors/nprogress/nprogress.js')}}"></script>
-
 <!-- Custom Theme Scripts -->
-<script src="{{asset('js/custom.min.js')}}"></script>
+<script src="{{asset('js/custom.js')}}"></script>
+
+@section('jsSection')
+    @show
 </body>
 </html>
 

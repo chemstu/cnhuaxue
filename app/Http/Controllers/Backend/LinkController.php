@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Handlers\ImageUploadHandler;
 
 class LinkController extends Controller
 {
@@ -14,7 +15,7 @@ class LinkController extends Controller
      */
     public function index()
     {
-        //
+       return view('backend.link.index');
     }
 
     /**
@@ -24,8 +25,10 @@ class LinkController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.link.create_edit');
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -82,4 +85,6 @@ class LinkController extends Controller
     {
         //
     }
+
+
 }

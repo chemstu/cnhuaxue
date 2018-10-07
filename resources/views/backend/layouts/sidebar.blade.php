@@ -21,12 +21,7 @@
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
                 <ul class="nav side-menu">
-                    <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu"> <li><a href="index.html">Dashboard</a></li>
-                            <li><a href="index2.html">Dashboard2</a></li>
-                            <li><a href="index3.html">Dashboard3</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="{{route('admin.dashboard')}}"><i class="fa fa-home"></i> 控制面板 </a> </li>
                     <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="form.html">General Form</a></li>
@@ -88,7 +83,7 @@
                     <li><a><i class="fa fa-windows"></i> 系统设置 <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="page_403.html">广告设置</a></li>
-                            <li><a href="page_404.html">友情链接</a></li>
+                            <li><a href="{{route('admin.link.index')}}">友情链接</a></li>
                             <li><a href="page_500.html">备份恢复</a></li>
                         </ul>
                     </li>
