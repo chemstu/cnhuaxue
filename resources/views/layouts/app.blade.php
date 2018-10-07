@@ -18,6 +18,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        @section('headerSection')
+          @show
+
 </head>
 <body>
     <div id="app">
