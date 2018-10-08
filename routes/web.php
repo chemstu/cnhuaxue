@@ -21,6 +21,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Backend'], function () {
     Route::get('/home', 'HomeController@index')->name('dashboard');
-    Route::post('/link/upload_image', 'LinkController@uploadImage')->name('link.upload_image');
+    Route::any('/link/uploadimage', 'LinkController@uploadimage')->name('link.uploadimage');
     Route::resource('/link','LinkController');
 });

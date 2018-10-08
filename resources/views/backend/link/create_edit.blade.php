@@ -54,8 +54,8 @@
 
                         <div class="x_content">
                             <br />
-                            <form id="link_create" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data">
-
+                            <form id="link_create"  data-parsley-validate  method="post" class="form-horizontal form-label-left" enctype="multipart/form-data">
+                                {{csrf_field()}}
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">网站名称 <span class="required">*</span>
                                     </label>
@@ -84,6 +84,19 @@
                                                 <input type="checkbox"  name="status"  class="js-switch"  value="1"  checked="" data-switchery="true" style="display: none;">                                        </div>
                                     </div>
                                 </div>
+
+                                <div class="control-group">
+
+                                    <label class="control-label">缩略图</label>
+
+                                    <div class="controls">
+                                        <input type="file" name="myfile" id="myfile" onchange="javascript:submitFile();" style="display: none">
+                                        <input type="text"  name="art_thumb"  class="m-wrap medium" />
+                                        <a class="btn btn-small btn-success" onclick="javascript:uploadmyFile();">上传</a>
+                                    </div>
+
+                                </div>
+
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">站点简介
                                     </label>
@@ -129,4 +142,36 @@
     <!-- Parsley  表单验证文件，第二个文件为语言文件-->
     <script src="{{asset('vendors/parsleyjs/dist/parsley.min.js')}}"></script>
     <script src="{{asset('vendors/parsleyjs/dist/i18n/zh_cn.js')}}"></script>
+
+    <script src="{{asset("js/jquery.form.min.js")}}" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+        function uploadmyFile()
+        {
+             $("#myfile").click();
+        }
+
+        function submitFile()
+        {
+            $("#link_create").ajaxSubmit({
+                url: "{{route('admin.link.uploadimage')}}",
+                type: "post",
+                dataType:'json',
+                success: function (data)
+                {
+
+                    $('input[name=art_thumb]').val(data.filePath)
+                    $('#art_thumb').attr('src','/'+data.filePath)
+
+                },
+                error: function (data)
+                {
+                    //var msg = eval(data);
+                    alert("出错");//msg.errCode
+                }
+            })
+        }
+
+    </script>
 @endsection
