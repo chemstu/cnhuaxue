@@ -1,7 +1,7 @@
 @extends('backend.layouts.app')
 @section('cssSection')
     <!-- NProgress -->
-    <link href="{{asset('vendors/nprogress/nprogress.css' )}}'）}}" rel="stylesheet">
+    <link href="{{asset('vendors/nprogress/nprogress.css')}}" rel="stylesheet">
     <!-- iCheck -->
     <link href="{{asset('vendors/iCheck/skins/flat/green.css' )}}" rel="stylesheet">
      <!-- Switchery -->
@@ -51,70 +51,69 @@
                             </ul>
                             <div class="clearfix"></div>
                         </div>
-
                         <div class="x_content">
                             <br />
-                            <form id="link_create"  data-parsley-validate  method="post" class="form-horizontal form-label-left" enctype="multipart/form-data">
+                            <form id="link_create"  data-parsley-validate  class="form-horizontal form-label-left" method="POST"
+                                  accept-charset="UTF-8" enctype="multipart/form-data">
                                 {{csrf_field()}}
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">网站名称 <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" id="name"  name="name" required="required" class="form-control col-md-7 col-xs-12">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">网站名称 <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" id="name"  name="name" required="required" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">网站地址 <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" id="url" name="url" required="required" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-6">公开</label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="checkbox"  name="status"  class="js-switch"  value="1"  checked="" data-switchery="true" style="display: none;">
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-inline">
+                                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-6">缩略图</label>
+                                            <div class="col-md-8 col-sm-8 col-xs-12">
+                                                <input type="file" name="myfile" id="myfile" onchange="javascript:submitFile();" style="display: none">
+                                                <input type="text"  name="art_thumb"  class="form-control col-md-6" />
+                                                &nbsp;&nbsp;
+                                                <a class="btn btn-small btn-success" onclick="javascript:uploadmyFile();">选择图片</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3">
+                                          <img id="art_thumb" src="" style="max-width:200px;max-height: 100px; "/>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">网站地址 <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" id="url" name="url" required="required" class="form-control col-md-7 col-xs-12">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">站点简介
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <textarea class="resizable_textarea form-control" placeholder="站点简介"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="ln_solid"></div>
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-6">
+                                            <a href="{{route('admin.link.index')}}" class="btn btn-default">取消</a>
+                                            <button class="btn btn-primary" type="reset">重置</button>
+                                            <button type="submit" class="btn btn-success">提交</button>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-6">缩略图</label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" id="name"  name="name" required="required" class="form-control col-md-7 col-xs-12">
-                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">公开</label>
-                                    <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <div class="">
-                                            <label>
-                                                <input type="checkbox"  name="status"  class="js-switch"  value="1"  checked="" data-switchery="true" style="display: none;">                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="control-group">
-
-                                    <label class="control-label">缩略图</label>
-
-                                    <div class="controls">
-                                        <input type="file" name="myfile" id="myfile" onchange="javascript:submitFile();" style="display: none">
-                                        <input type="text"  name="art_thumb"  class="m-wrap medium" />
-                                        <a class="btn btn-small btn-success" onclick="javascript:uploadmyFile();">上传</a>
-                                    </div>
-
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">站点简介
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input id="desc" class="form-control col-md-7 col-xs-12" type="text">
-                                    </div>
-                                </div>
-                                <div class="ln_solid"></div>
-                                <div class="form-group">
-                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-6">
-                                        <a href="{{route('admin.link.index')}}" class="btn btn-default">Cancel</a>
-                                        <button class="btn btn-primary" type="reset">Reset</button>
-                                        <button type="submit" class="btn btn-success">Submit</button>
-                                    </div>
-                                </div>
-
                             </form>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -160,9 +159,11 @@
                 dataType:'json',
                 success: function (data)
                 {
-
                     $('input[name=art_thumb]').val(data.filePath)
+                    //返回数据为相对路径
                     $('#art_thumb').attr('src','/'+data.filePath)
+                    //返回数据为绝对路径
+                    $('#art_thumb').attr('src',data.filePath)
 
                 },
                 error: function (data)
@@ -172,6 +173,5 @@
                 }
             })
         }
-
     </script>
 @endsection
