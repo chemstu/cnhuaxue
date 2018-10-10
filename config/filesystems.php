@@ -48,12 +48,15 @@ return [
             'root' => storage_path('app'),
         ],
 
+
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL'),
+            //由 'root' => storage_path('app/public'),改为 'root' => public_path()中少了storage
+            'root' => public_path(),
+            'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
+
 
         's3' => [
             'driver' => 's3',

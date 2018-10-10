@@ -25,23 +25,25 @@ class ImageUploadHandler
             return false;
         }
         //阿里云上传
-        OSS::publicUploadContent('cnhuaxue',$folder_name .'/'.$filename,file_get_contents($file),['ContentType' => $content_type]);
+        //OSS::publicUploadContent('cnhuaxue',$folder_name .'/'.$filename,file_get_contents($file),['ContentType' => $content_type]);
         //阿里云上传结束
 
 
         //本地上传开始 ，使用Intervention 构建缩略图
-        //Storage::disk('public')->put($folder_name .'/'.$filename,fopen($file,'r+'),'public');
+        Storage::disk('public')->put($folder_name .'/'.$filename,fopen($file,'r+'),'public');
 
         //如果限制了图片宽度，就进行裁剪
-
-
+        if ($max_width && $extension != 'gif') {
+            // 此类中封装的函数，用于裁剪图片
+            $this->reduceSize($folder_name . '/' . $filename, $max_width);
+        }
         //本地上传结束*/
         return [
             //oss缩略图 外加  ?x-oss-process=style/400300
             // 'path' => config('app.url') . "/$folder_name/$filename?x-oss-process=style/500"
 
             //本地上传返回原图或缩略图地址
-            'path' => config('app.imgcdn') . "/$folder_name/$filename"
+            'path' => config('app.url') . "/$folder_name/$filename"
 
         ];
     }
