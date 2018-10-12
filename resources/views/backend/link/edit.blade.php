@@ -14,9 +14,8 @@
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>友情链接</h3>
+                    <h3>友情链接管理</h3>
                 </div>
-
                 <div class="title_right">
                     <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                         <div class="input-group">
@@ -53,43 +52,44 @@
                         </div>
                         <div class="x_content">
                             <br />
-                            <form id="link_create"  data-parsley-validate  class="form-horizontal form-label-left" method="POST"
+                            <form id="link_create"   action="{{route('admin.link.update',$link->id)}}" data-parsley-validate  class="form-horizontal form-label-left" method="POST"
                                   accept-charset="UTF-8" enctype="multipart/form-data">
                                 {{csrf_field()}}
+                                {{ method_field('PUT') }}
                                 <div class="row">
                                     <div class="col-md-9">
                                         <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">网站名称 <span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input type="text" id="name"  name="name" required="required" class="form-control col-md-7 col-xs-12">
+                                                <input type="text" value="{{$link->name}}"id="name"  name="name" required="required" class="form-control col-md-7 col-xs-12">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">网站地址 <span class="required">*</span>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name" >网站地址 <span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input type="text" id="url" name="url" required="required" class="form-control col-md-7 col-xs-12">
+                                                <input type="text"  value="{{$link->url}}"id="url" name="url" required="required" class="form-control col-md-7 col-xs-12" data-parsley-type="url">
                                             </div>
                                         </div>
+
                                         <div class="form-group">
                                             <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-6">公开</label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input type="checkbox"  name="status"  class="js-switch"  value="1"  checked="" data-switchery="true" style="display: none;">
+                                                <input type="checkbox"  name="status"  class="js-switch"  value="1"  {{ $link->status == true ? 'checked' : '' }} data-switchery="true" style="display: none;">
                                             </div>
                                         </div>
                                         <div class="form-group form-inline">
                                             <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-6">缩略图</label>
                                             <div class="col-md-8 col-sm-8 col-xs-12">
-                                                <input type="file" name="myfile" id="myfile" onchange="javascript:submitFile();" style="display: none">
-                                                <input type="text"  name="art_thumb"  class="form-control col-md-6" />
-                                                &nbsp;&nbsp;
+                                                <input type="file" name="logo" id="logo" onchange="javascript:submitFile();" style="display: none">
+                                                <input type="text"  name="thumb"  value="{{$link->thumb}}" class="form-control col-md-6" />
                                                 <a class="btn btn-small btn-success" onclick="javascript:uploadmyFile();">选择图片</a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3 col-sm-3">
-                                          <img id="art_thumb" src="" style="max-width:200px;max-height: 100px; "/>
+                                        <img id="thumb" src="{{$link->thumb}}" style="max-width:200px;max-height: 100px; "/>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -98,7 +98,7 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">站点简介
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <textarea class="resizable_textarea form-control" placeholder="站点简介"></textarea>
+                                            <textarea name="introduce" class="resizable_textarea form-control" placeholder="站点简介">{{$link->introduce}}</textarea>
                                         </div>
                                     </div>
                                     <div class="ln_solid"></div>
@@ -113,12 +113,13 @@
                                 </div>
                             </form>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
 @endsection
 
 @section('jsSection')
@@ -142,34 +143,33 @@
     <script src="{{asset('vendors/parsleyjs/dist/parsley.min.js')}}"></script>
     <script src="{{asset('vendors/parsleyjs/dist/i18n/zh_cn.js')}}"></script>
 
+    <!-- 异步提交，缩略图-->
     <script src="{{asset("js/jquery.form.min.js")}}" type="text/javascript"></script>
-
     <script type="text/javascript">
-
         function uploadmyFile()
         {
-             $("#myfile").click();
+             $("#logo").click();
         }
-
         function submitFile()
         {
+            <!-- 注意link_crate为表单名称，在form中dingyi-->
             $("#link_create").ajaxSubmit({
+
                 url: "{{route('admin.link.uploadimage')}}",
                 type: "post",
                 dataType:'json',
                 success: function (data)
                 {
-                    $('input[name=art_thumb]').val(data.filePath)
+                    $('input[name=thumb]').val(data.filePath)
                     //返回数据为相对路径
-                    $('#art_thumb').attr('src','/'+data.filePath)
+                    $('#thumb').attr('src','/'+data.filePath)
                     //返回数据为绝对路径
-                    $('#art_thumb').attr('src',data.filePath)
-
+                    $('#thumb').attr('src',data.filePath)
                 },
                 error: function (data)
                 {
                     //var msg = eval(data);
-                    alert("出错");//msg.errCode
+                    alert("上传图片不能超过2M ！");//msg.errCode
                 }
             })
         }

@@ -25,21 +25,7 @@
                     <div class="x_panel">
                         <div class="x_title">
                             <h2>数据统计</h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">Settings 1</a>
-                                        </li>
-                                        <li><a href="#">Settings 2</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                </li>
-                            </ul>
+
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
@@ -65,7 +51,7 @@
                                 </div>
                                 <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                     <div class="tile-stats">
-                                        <div class="icon"><i class="fa fa-user"></i>
+                                        <div class="icon"><i class="fa fa-users"></i>
                                         </div>
                                         <div class="count">179</div>
 
@@ -78,7 +64,6 @@
                                         <div class="icon"><i class="fa fa-check-square-o"></i>
                                         </div>
                                         <div class="count">179</div>
-
                                         <h3>New Sign ups</h3>
                                         <p>Lorem ipsum psdea itgum rixt.</p>
                                     </div>
@@ -89,28 +74,13 @@
                     <div class="x_panel">
                         <div class="x_title">
                             <h2>系统基本信息</h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">Settings 1</a>
-                                        </li>
-                                        <li><a href="#">Settings 2</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                </li>
-                            </ul>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
                             <div class="row">
                                 <ul>
                                     <li>
-                                        <label>操作系统</label><span>   {{PHP_OS}}</span>
+                                        <label>操作系统</label><span >   {{PHP_OS}}</span>
                                     </li>
                                     <li>
                                         <label>运行环境</label><span>   {{$_SERVER['SERVER_SOFTWARE']}}</span>

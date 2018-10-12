@@ -5,7 +5,7 @@ Parsley.addMessages('zh-cn', {
   defaultMessage: "不正确的值",
   type: {
     email:        "请输入一个有效的电子邮箱地址",
-    url:          "请输入一个有效的链接",
+    url:          "请输入一个有效的网址",
     number:       "请输入正确的数字",
     integer:      "请输入正确的整数",
     digits:       "请输入正确的号码",

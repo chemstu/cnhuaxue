@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-
+use App\Http\Models\Backend\Link;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Handlers\ImageUploadHandler;
+use Illuminate\Support\Facades\Auth;
 
 class LinkController extends Controller
 {
@@ -13,12 +15,10 @@ class LinkController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Link $link)
     {
-
-       return view('backend.link.index');
-
-
+        $links=Link::all();
+        return view('backend.link.index',compact('links'));
     }
 
     /**
@@ -28,21 +28,23 @@ class LinkController extends Controller
      */
     public function create()
     {
-
-        return view('backend.link.create_edit');
+        return view('backend.link.create');
     }
-
-
-
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,Link $link)
     {
-        //
+        $link->fill($request->all());
+        if(!$request->status){
+            $link->status=0;
+        }
+        $link->save();
+        Toastr::success('信息添加成功 :)','Success');
+        return redirect(route('admin.link.index'));
     }
 
     /**
@@ -64,7 +66,8 @@ class LinkController extends Controller
      */
     public function edit($id)
     {
-        //
+        $link = link::find($id);
+        return view('backend.link.edit',compact('link'));
     }
 
     /**
@@ -74,9 +77,15 @@ class LinkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Link $link)
     {
-        //
+        $link->fill($request->all());
+        if(!$request->status){
+            $link->status=0;
+        }
+        $link->save();
+        Toastr::success('信息修改成功 :)','Success');
+        return redirect(route('admin.link.index'));
     }
 
     /**
@@ -87,14 +96,17 @@ class LinkController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Link::where('id',$id)->delete();
+        Toastr::success('信息成功删除 :)','成功');
+        return redirect(route('admin.link.index'));
     }
 
     public function  uploadimage(Request $request, ImageUploadHandler $uploader )
     {
-        if ($file = $request->myfile) {
+        if ($file = $request->logo) {
             // 保存图片到本地
-            $result = $uploader->save($file,'post',2769,500);
+
+            $result = $uploader->save($file,'link',Auth::id(),200);
             if ($result) {
                 $data = [
                     'status' => 0,

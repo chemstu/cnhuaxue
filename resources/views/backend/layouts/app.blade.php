@@ -15,7 +15,6 @@
     <link href="{{asset('css/custom.css')}}" rel="stylesheet">
     @section('cssSection')
        @show
-
 </head>
 <body class="nav-md">
 <div class="container body">
