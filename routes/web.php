@@ -21,6 +21,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Backend'], function () {
     Route::get('/home', 'HomeController@index')->name('dashboard');
+    Route::get('/profile', 'UserController@profile')->name('profile');
     Route::any('/link/uploadimage', 'LinkController@uploadimage')->name('link.uploadimage');
+    Route::any('/link/delete', 'LinkController@destroy')->name('link.delete');
+    Route::any('/link/delall', 'LinkController@delall')->name('link.delall');
     Route::resource('/link','LinkController');
 });

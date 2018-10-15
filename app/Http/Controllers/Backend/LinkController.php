@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
+
 use App\Http\Models\Backend\Link;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
@@ -96,16 +97,34 @@ class LinkController extends Controller
      */
     public function destroy($id)
     {
-        Link::where('id',$id)->delete();
-        Toastr::success('信息成功删除 :)','成功');
-        return redirect(route('admin.link.index'));
+        $res=Link::where('id',$id)->delete();
+        if($res){
+            $data = [
+                'status' => 0,
+                'msg' => '文章删除成功！',
+            ];
+        }else{
+            $data = [
+                'status' => 1,
+                'msg' => '文章删除失败，请稍后重试！',
+            ];
+        }
+        return $data;
     }
 
+    //删除所选
+    public function delall(Request $request)
+    {
+        $ids = $request->input('ids');
+        Link::whereIn('id', $ids)->delete();
+        Toastr::success('信息删除成功 :)','Success');
+        return redirect(route('admin.link.index'));
+    }
+    //缩略图上传
     public function  uploadimage(Request $request, ImageUploadHandler $uploader )
     {
         if ($file = $request->logo) {
             // 保存图片到本地
-
             $result = $uploader->save($file,'link',Auth::id(),200);
             if ($result) {
                 $data = [
